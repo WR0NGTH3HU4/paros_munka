@@ -31,3 +31,9 @@ hr{
 h2{
     color: #0d6efd;
 }
+
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
