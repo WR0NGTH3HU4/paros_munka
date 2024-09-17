@@ -1,2 +1,2 @@
 # paros_munka
-Dominikkal ketten csináljuk az páros munkás feladatot
+Dominikkal ketten csináljuk a páros munkás feladatot
