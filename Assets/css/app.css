@@ -26,6 +26,7 @@ hr{
 h2{
     color: #0d6efd;
 }
+<<<<<<< HEAD
 #Landing{
     display: flex;
     flex-direction: row;
@@ -72,5 +73,11 @@ h2{
     justify-content: center;
     justify-items: center;
     align-content: center;
+=======
+
+.container{
+    display: flex;
+    flex-direction: column;
+>>>>>>> 3e674509f572cdaa3d07b10dbce3be9228782d40
     align-items: center;
 }

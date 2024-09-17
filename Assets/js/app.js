@@ -11,7 +11,7 @@ let header = document.querySelector('header');
 let footer = document.querySelector('footer');
 
 title.innerHTML = AppTitle + ' ' + Appversion;
-header.innerHTML = AppTitle;
+header.innerHTML;
 footer.innerHTML = Company + ' | ' + Author + ' | 2024.';
 
 async function render(view){
