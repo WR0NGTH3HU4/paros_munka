@@ -64,7 +64,7 @@ app.post('/reg', (req, res) => {
      }
     
     // új felhasználó felvétele
-    pool.query(`INSERT INTO users VALUES('${uuid.v4()}', '${req.body.name}', '${req.body.email}', SHA1('${req.body.passwd}'), 'user')`, (err, results)=>{
+    pool.query(`INSERT INTO users VALUES('${uuid.v4()}', '${req.body.name}', SHA1('${req.body.password}'), '${req.body.email}', '${req.body.phone}', 'user', 'true' )`, (err, results)=>{
       if (err){
         res.status(500).send('Hiba történt az adatbázis művelet közben!');
         return;
