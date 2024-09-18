@@ -64,7 +64,7 @@ app.post('/reg', (req, res) => {
      }
     
     // új felhasználó felvétele
-    pool.query(`INSERT INTO users VALUES('${uuid.v4()}', '${req.body.name}', SHA1('${req.body.password}'), '${req.body.email}', '${req.body.phone}', 'user', 'true' )`, (err, results)=>{
+    pool.query(`INSERT INTO users VALUES('${uuid.v4()}', '${req.body.name}', ${req.body.password}, '${req.body.email}', '${req.body.phone}', 'user', 'true' )`, (err, results)=>{
       if (err){
         res.status(500).send('Hiba történt az adatbázis művelet közben!');
         return;
@@ -81,21 +81,24 @@ app.post('/reg', (req, res) => {
 app.post('/login', (req, res) => {
 
   //console.log(req.body);
-  if (!req.body.email || !req.body.passwd) {
+  if (!req.body.email || !req.body.password) {
     res.status(203).send('Hiányzó adatok!');
     return;
   }
-
-  pool.query(`SELECT ID, name, email, role FROM users WHERE email ='${req.body.email}' AND passwd='${CryptoJS.SHA1(req.body.passwd)}'`, (err, results) =>{
+  console.log(req.body);
+  pool.query(`SELECT ID, name, email, role FROM users WHERE email ='${req.body.email}' AND password='${CryptoJS.SHA1(req.body.password)}'`, (err, results) =>{
+    
     if (err){
       res.status(500).send('Hiba történt az adatbázis lekérés közben!');
       return;
     }
+    
     if (results.length == 0){
       res.status(203).send('Hibás belépési adatok!');
       return;
     }
-    res.status(202).send(results);
+
+    res.status(200).send(results);
     return;
   });
 
@@ -103,7 +106,7 @@ app.post('/login', (req, res) => {
 
 // bejelentkezett felhasználó adatainak lekérése
 app.get('/me/:id', logincheck, (req, res) => {
- //TODO: id-t megoldani backenden majd, hogy ne kelljen itt átadni
+
   if (!req.params.id) {
     res.status(203).send('Hiányzó azonosító!');
     return;
