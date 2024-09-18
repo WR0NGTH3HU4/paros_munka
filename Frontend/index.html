@@ -4,47 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
-    <link rel="stylesheet" href="./Assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./Assets/css/app.css">
+    <link rel="stylesheet" href="./dist.css">
 </head>
 
 <body>
     
-    <div class="container">
-            
-            <nav class="navbar navbar-expand-lg bg-body align-items:center">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="#" onclick="render('Főoldal')">Főoldal</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav">
-                            <li class="nav-item lgdOut">
-                                <a class="nav-link" href="#" onclick="render('Bejelentkezés');">Bejelentkezés</a>
-                            </li>
-                            <li class="nav-item lgdOut">
-                                <a class="nav-link" href="#" onclick="render('Regisztráció');">Regisztráció</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-            <header></header>
+    <div class="flex flex-col justify-start content-center items-center w-full h-full p-3">
+        <nav class="w-full flex flex-row justify-center content-center items-center gap-3 text-xl text-stone-700">
+            <div>
+                <h3>Főoldal</h3>
+            </div>
+            <span>
+                <h3>Bejelentkezés</h3>
+            </span>
+            <span>
+                <h3>Regisztráció</h3>
+            </span>
+        </nav>
+        <div class="w-[400px] h-[400px] pic"></div>
+        <div class="flex flex-row justify-center content-center items-center">
+
+        </div>
     </div>
-
-    <main></main>
-
-    <footer></footer>
     
     <!--Assets-->
-
-    <script src="./Assets/js/bootstrap.bundle.min.js"></script>
     <script src="./Assets/js/axios.min.js"></script>
     <script src="./Assets/js/app.js"></script>
-    
+
     <!--Controllers-->
     <script src="./Controllers/userCtrl.js"></script>
 
 </body>
+<style>
+    .pic{
+        display: none;
+        background-image: url(../Frontend/Assets/img/csikk.jpg);
+    }
+</style>
 </html>
