@@ -1,0 +1,22 @@
+{
+  "name": "paros_munka",
+  "version": "1.0.0",
+  "description": "Dominikkal ketten csináljuk a páros munkás feladatot\r Igen. ez igaz",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WR0NGTH3HU4/paros_munka.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/WR0NGTH3HU4/paros_munka/issues"
+  },
+  "homepage": "https://github.com/WR0NGTH3HU4/paros_munka#readme",
+  "devDependencies": {
+    "tailwindcss": "^3.4.12"
+  }
+}
