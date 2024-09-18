@@ -9,11 +9,11 @@
 
 <body>
     
-    <div class="flex flex-col justify-start content-center items-center w-full h-full p-3">
+    <div class="flex flex-col justify-start content-center items-center w-full h-full min-h-[100vh] p-3">
         <nav class="w-full flex flex-row justify-center content-center items-center gap-3 text-xl text-stone-700">
-            <div>
+            <span>
                 <h3>Főoldal</h3>
-            </div>
+            </span>
             <span>
                 <h3>Bejelentkezés</h3>
             </span>
@@ -22,8 +22,12 @@
             </span>
         </nav>
         <div class="w-[400px] h-[400px] pic"></div>
-        <div class="flex flex-row justify-center content-center items-center">
-
+        <div class="flex flex-row justify-evenly content-center items-center w-full h-[100vh]">
+            <span class="ChefDuo w-[400px] h-[400px] rounded-full drop-shadow-lg"></span>
+            <span class="flex flex-col justify-center content-center items-center w-1/2">
+                <h3>Üdvözlünk az oldalon</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum totam facilis voluptate adipisci voluptatibus architecto, harum esse quo iste, tempora sed accusantium? Non enim repellat ipsa incidunt quis voluptatum modi? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sint dolor quia, rem minima facere autem, quisquam dicta accusantium assumenda voluptatibus vitae cumque! Dolores natus ab quasi officiis eius! Corrupti, eius.</p>
+            </span>
         </div>
     </div>
     
@@ -39,6 +43,14 @@
     .pic{
         display: none;
         background-image: url(../Frontend/Assets/img/csikk.jpg);
+    }
+    .ChefDuo{
+        background-image: url(../Frontend/Assets/img/chefDuo.jpg);
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        outline: 5px solid #f5f5f4;
+        
     }
 </style>
 </html>
