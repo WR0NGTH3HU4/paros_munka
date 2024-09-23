@@ -8,44 +8,32 @@ loggedUser = null;
 const serverUrl = 'http://localhost:3000';
 
 let title = document.querySelector('title');
-let header = document.querySelector('header');
-let footer = document.querySelector('footer');
+let PageTitle = document.querySelector('#PageTitle');
 
 title.innerHTML = AppTitle + ' ' + Appversion;
-header.innerHTML;
-footer.innerHTML = Company + ' | ' + Author + ' | 2024.';
-
+PageTitle.innerHTML;
 async function render(view){
-    let main = document.querySelector('main');
-    main.innerHTML = await (await fetch(`Views/${view}.html`)).text();
-    header.innerHTML = String(view);
+    let main = document.querySelector('#main');
+    main.innerHTML = await (await fetch(`Views/${view}.html`)).text();    
 
     switch(view){
-        case 'profile': {
-            getMe();
-            break;
+        case 'Bejelentkezes': {
+            PageTitle.innerHTML = "Bejelentkezés"
         }
-        case 'users': {
-            getUsers();
-            break;
+        case 'Regisztracio': {
+            PageTitle.innerHTML = "Regisztráció"
         }
-        case 'steps': {
-            getStepDatas();
-            break;
-        }
-        case 'statistics': {
-            getUserStats();
-            getAdminStats(); // feltételhez kell kötni! hogy admin-e a bejelentkezett user
-            break;
+        case 'Fooldal': {
+            PageTitle.innerHTML = "Mr.Black & Mr.Blacker online szakács könyv"
         }
     }
 }
 
 if (localStorage.getItem('szakacskonyv')){
     loggedUser = JSON.parse(localStorage.getItem('szakacskonyv'));
-    render('Főoldal');
+    render('Fooldal');
 }else{
-    render('Bejelentkezés');
+    render('Bejelentkezes');
 }
 
 function renderNavItems(){
@@ -85,6 +73,6 @@ function renderNavItems(){
 
 document.addEventListener('DOMContentLoaded', function() {
     if (typeof render === 'function') {
-        render('Főoldal');
+        render('Fooldal');
     }
 });
