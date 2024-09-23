@@ -10,9 +10,12 @@
 <body>
     
     <div class="flex flex-col justify-start content-center items-center w-full h-[100vh] p-3 gap-5">
-        <nav class="w-full flex flex-row justify-center content-center items-center gap-3 text-xl text-stone-700">
+        <nav class="w-full flex flex-row justify-center content-center items-center gap-3 text-xl text-stone-100">
             <span onclick="render('Fooldal')">
                 <h3>Főoldal</h3>
+            </span>
+            <span onclick="render('Receptek')">
+                <h3>Receptek</h3>
             </span>
             <span onclick="render('Bejelentkezes')">
                 <h3>Bejelentkezés</h3>
@@ -35,6 +38,7 @@
 
     <!--Controllers-->
     <script src="./Controllers/userCtrl.js"></script>
+    <script src="./Controllers/recipesCtrl.js"></script>
 
 </body>
 </html>

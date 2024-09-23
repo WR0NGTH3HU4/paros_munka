@@ -26,6 +26,10 @@ async function render(view){
         case 'Fooldal': {
             PageTitle.innerHTML = "Mr.Black & Mr.Blacker online szakács könyv"
         }
+        case 'Receptek': {
+            PageTitle.innerHTML = "Receptek"
+            getRecipes();
+        }
     }
 }
 

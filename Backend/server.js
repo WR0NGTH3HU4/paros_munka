@@ -28,6 +28,18 @@ app.get('/', (req, res) => {
   res.send(`API version : ${process.env.VERSION}`);
 });
 
+app.get('/recipes', (req, res) =>{
+  pool.query(`SELECT catID, userID, title, description,time, additions, calory FROM recipes`, (err, results) =>{ 
+    if (err){
+      res.status(500).send('Hiba történt az adatbázis lekérés közben!');
+      return;
+    }
+
+    res.status(200).send(results);
+    return;
+  });
+});
+
 // user regisztráció 
 app.post('/reg', (req, res) => {
 

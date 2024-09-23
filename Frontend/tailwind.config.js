@@ -4,6 +4,7 @@ module.exports = {
   content: [
     "./Assets/**/*.html",
     "./Assets/**/*.js",
+    "./Controllers/**/*.js",
     "./Views/**/*.html",
     "./index.html",
   ],
