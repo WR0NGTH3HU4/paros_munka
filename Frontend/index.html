@@ -9,7 +9,7 @@
 
 <body>
     
-    <div class="flex flex-col justify-start content-center items-center w-full h-[100vh] p-3 gap-5">
+    <div class="flex flex-col justify-start content-center items-center w-[100vw] h-[100vh] p-3 gap-5 pic">
         <nav class="w-full flex flex-row justify-center content-center items-center gap-3 text-xl text-stone-100">
             <span onclick="render('Fooldal')">
                 <h3>Főoldal</h3>
@@ -41,4 +41,15 @@
     <script src="./Controllers/recipesCtrl.js"></script>
 
 </body>
+<style>
+        .pic{
+        background-image: url(../Frontend/Assets/img/Fooldal.svg) ,url(../Frontend/Assets/img/Fooldal2.svg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: bottom;
+        background-blend-mode: normal ;
+
+    }
+</style>
 </html>
+
