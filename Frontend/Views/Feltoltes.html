@@ -1,0 +1,51 @@
+<div class="flex flex-col justify-center content-center items-center w-full h-full">
+    <div class="flex flex-row justify-between content-center items-center w-full h-full gap-5">
+        <div class="flex flex-col justify-evenly content-center items-center w-1/2 h-full gap-5 mb-10">
+            <div class="flex flex-col justify-center content-center items-center w-full gap-5">
+                <h3 class="text-xl text-stone-100 w-full">Étel megnevezése</h3>
+                <input id="passwd" class="form-control block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:stroke-1 focus:stroke-stone-600 focus:text-stone-700" placeholder="Étel megnevezése">
+            </div>
+            <div class="flex flex-col justify-center content-center items-center w-full">
+                <h3 class="text-xl text-stone-100 ">Adja meg a hozzávalókat</h3>
+                <div class="flex flex-col justify-center content-center items-center w-full gap-5">
+                    <h3 class="text-xl text-stone-100 w-full">Új hozzávaló</h3>
+                    <input type="text" class="form-control block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:stroke-1 focus:stroke-stone-600 focus:text-stone-700" placeholder="Hozzávaló">
+                    <button id="upload" class="bg-green-700 text-stone-50 p-3 rounded-[15px] text-lg hover:bg-green-600 w-1/2 active:bg-green-500" onclick="render('Regisztracio')">
+                        Felvétel
+                    </button>
+                    <h3 class="text-xl text-stone-300">Itt fognak megjelenni a felvett hozzávalók</h3>
+                </div>
+    
+            </div>
+
+
+        </div>
+        <div class="flex flex-col justify-start content-center items-center w-1/2 h-full gap-5 py-5">
+            <h3 class="text-xl text-stone-100 ">Leírás  </h3>
+            <textarea 
+                id="descriptionTextarea"
+                class="form-control block w-full h-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-stone-600 focus:text-stone-700 placeholder-gray-400" 
+                placeholder="Leírás hozzáadása"
+                rows="4"
+                style="resize: none; overflow-wrap: break-word;">
+            </textarea>
+
+        </div>
+    </div>
+
+    <button id="upload" class="bg-green-700 text-stone-50 p-3 rounded-[15px] text-lg hover:bg-green-600 w-full active:bg-green-500 mb-5" onclick="render('Regisztracio')">
+        Feltöltés
+    </button>
+    <button id="upload" class="bg-stone-500 text-stone-50 p-3 rounded-[15px] text-lg hover:bg-red-800 w-full active:bg-red-700 mb-5" onclick="render('Regisztracio')">
+        Mégse
+    </button>
+</div>
+<style>
+    #upload:hover{
+        transition: 0.2s ease-in;
+    }
+    #upload:not(:hover){
+        transition: 0.2s ease-out;
+    }
+    
+</style>

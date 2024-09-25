@@ -34,6 +34,11 @@ async function render(view){
             PageTitle.innerHTML = "Receptek";
             break;
         }
+        case 'Feltoltes': {
+            pushRecipes();
+            PageTitle.innerHTML = "Tölts fel recepteket";
+            break;
+        }
     }
 }
 
