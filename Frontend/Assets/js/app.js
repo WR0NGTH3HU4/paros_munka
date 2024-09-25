@@ -18,17 +18,21 @@ async function render(view){
 
     switch(view){
         case 'Bejelentkezes': {
-            PageTitle.innerHTML = "Bejelentkezés"
+            PageTitle.innerHTML = "Bejelentkezés";
+            break;
         }
         case 'Regisztracio': {
-            PageTitle.innerHTML = "Regisztráció"
+            PageTitle.innerHTML = "Regisztráció";
+            break;
         }
         case 'Fooldal': {
-            PageTitle.innerHTML = "Mr.Black & Mr.Blacker online szakács könyv"
+            PageTitle.innerHTML = "Mr.Black & Mr.Blacker online szakács könyv";
+            break;
         }
         case 'Receptek': {
-            PageTitle.innerHTML = "Receptek"
             getRecipes();
+            PageTitle.innerHTML = "Receptek";
+            break;
         }
     }
 }
