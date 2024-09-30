@@ -28,6 +28,56 @@ app.get('/', (req, res) => {
   res.send(`API version : ${process.env.VERSION}`);
 });
 
+app.get('/recipes', (req, res) =>{
+  pool.query(`SELECT catID, userID, title, description,time, additions, calory FROM recipes`, (err, results) =>{ 
+    if (err){
+      res.status(500).send('Hiba történt az adatbázis lekérés közben!');
+      return;
+    }
+
+    res.status(200).send(results);
+    return;
+  });
+});
+
+//Kategóriák lekérése
+app.get('/category', (req, res) =>{
+  pool.query(`SELECT ID, name FROM category`, (err, results)=>{
+    if (err){
+      res.status(500).send('Hiba történt az adatbázis lekérés közben!');
+      return;
+    }
+
+    res.status(200).send(results);
+    return;
+  })
+})
+
+//Új recept feltöltése
+app.post('/upload/:userID', (req, res)=>{
+
+  if (!req.params.userID) {
+    res.status(203).send('Hiányzó azonosító!');
+    return;
+  }
+
+  if(!req.body.title || !req.description || !req.body.time || req.body.additions || req.body.calroy){
+    res.status(203).send('Nem adtál meg minden kötelező adatot!');
+    return;
+  }
+
+  pool.query(`INSERT INTO recipes VALUES('${uuid.v4()}', ${req.body.catID}, '${req.params.userID}', '${req.body.title}', '${req.body.description}', '${req.body.time}', '${req.body.additions}', '${req.body.calory}')`, (err, results)=>{
+    if (err){
+      res.status(500).send('Hiba történt az adatbázis művelet közben!');
+      return;
+     }
+     res.status(200).send('Recept felvéve!');
+     return;
+  });
+ 
+
+})
+
 // user regisztráció 
 app.post('/reg', (req, res) => {
 
@@ -64,9 +114,10 @@ app.post('/reg', (req, res) => {
      }
     
     // új felhasználó felvétele
-    pool.query(`INSERT INTO users VALUES('${uuid.v4()}', '${req.body.name}', ${req.body.password}, '${req.body.email}', '${req.body.phone}', 'user', 'true' )`, (err, results)=>{
+    pool.query(`INSERT INTO users VALUES('${uuid.v4()}', '${req.body.name}', '${req.body.email}', '${req.body.passwd}', '${req.body.phone}', 'user', '1' )`, (err, results)=>{
       if (err){
         res.status(500).send('Hiba történt az adatbázis művelet közben!');
+        console.log(err)
         return;
        }
        res.status(202).send('Sikeres regisztráció!');
@@ -93,10 +144,7 @@ app.post('/login', (req, res) => {
       return;
     }
     
-    if (results.length == 0){
-      res.status(203).send('Hibás belépési adatok!');
-      return;
-    }
+
 
     res.status(200).send(results);
     return;

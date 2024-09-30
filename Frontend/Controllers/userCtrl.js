@@ -1,17 +1,19 @@
-function registration(){
-    console.log('Belépett');
+function registration() {
+    console.log('Belépett'); // Ellenőrizd, hogy ezt látod-e a konzolban
     let newUser = {
         name: document.querySelector('#name').value,
         email: document.querySelector('#email').value,
         passwd: document.querySelector('#passwd').value,
         confirm: document.querySelector('#confirm').value,
-        telefon: document.querySelector('#telefon').value
+        phone: document.querySelector('#telefon').value // Ügyelj a helyes id-re
     }
 
+    console.log(newUser); // Ellenőrizd, hogy ez megjelenik-e a konzolban
     axios.post(`${serverUrl}/reg`, newUser).then(res => {
         alert(res.data);
     });
 }
+
 
 function login(){
     let user = {
@@ -29,7 +31,7 @@ function login(){
 
         loggedUser = res.data;
         localStorage.setItem('szakacskonyv', JSON.stringify(loggedUser));
-        render('Főoldal');
+        render('Receptek');
     });
 }
 

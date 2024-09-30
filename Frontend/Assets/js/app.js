@@ -2,40 +2,49 @@ const AppTitle = "Online Szakácskönyv";
 const Appversion = "v1.0";
 const Author = "Kulimák Máté és Tátrai Dominik Oszkár";
 const Company = "Bajai SZC Türr István Technikum";
-
+const pic = document.querySelector('.pic');
 loggedUser = null;
 
 const serverUrl = 'http://localhost:3000';
 
 let title = document.querySelector('title');
-let header = document.querySelector('header');
-let footer = document.querySelector('footer');
+let PageTitle = document.querySelector('#PageTitle');
 
 title.innerHTML = AppTitle + ' ' + Appversion;
-header.innerHTML;
-footer.innerHTML = Company + ' | ' + Author + ' | 2024.';
-
+PageTitle.innerHTML;
 async function render(view){
-    let main = document.querySelector('main');
-    main.innerHTML = await (await fetch(`Views/${view}.html`)).text();
-    header.innerHTML = String(view);
+    let main = document.querySelector('#main');
+    main.innerHTML = await (await fetch(`Views/${view}.html`)).text();    
 
     switch(view){
-        case 'profile': {
-            getMe();
+        case 'Bejelentkezes': {
+            PageTitle.innerHTML = "Bejelentkezés";
+            pic.classList.add('pic');
             break;
         }
-        case 'users': {
-            getUsers();
+        case 'Regisztracio': {
+            PageTitle.innerHTML = "Regisztráció";
+            pic.classList.add('pic');
             break;
         }
-        case 'steps': {
-            getStepDatas();
+        case 'Fooldal': {
+            PageTitle.innerHTML = "Mr.Black & Mr.Blacker online szakács könyv";
+            pic.classList.add('pic');
             break;
         }
-        case 'statistics': {
-            getUserStats();
-            getAdminStats(); // feltételhez kell kötni! hogy admin-e a bejelentkezett user
+        case 'Receptek': {
+            getRecipes();
+            PageTitle.innerHTML = "Receptek";
+
+            pic.classList.remove('pic');
+
+            break;
+        }
+        case 'Feltoltes': {
+            pushRecipes();
+            getCategory();
+            pic.classList.add('pic');
+            PageTitle.innerHTML = "Tölts fel recepteket";
             break;
         }
     }
@@ -43,9 +52,9 @@ async function render(view){
 
 if (localStorage.getItem('szakacskonyv')){
     loggedUser = JSON.parse(localStorage.getItem('szakacskonyv'));
-    render('Főoldal');
+    render('Fooldal');
 }else{
-    render('Bejelentkezés');
+    render('Bejelentkezes');
 }
 
 function renderNavItems(){
@@ -85,6 +94,6 @@ function renderNavItems(){
 
 document.addEventListener('DOMContentLoaded', function() {
     if (typeof render === 'function') {
-        render('Főoldal');
+        render('Fooldal');
     }
 });
