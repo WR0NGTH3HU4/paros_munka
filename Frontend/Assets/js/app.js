@@ -2,7 +2,7 @@ const AppTitle = "Online Szakácskönyv";
 const Appversion = "v1.0";
 const Author = "Kulimák Máté és Tátrai Dominik Oszkár";
 const Company = "Bajai SZC Türr István Technikum";
-
+const pic = document.querySelector('.pic');
 loggedUser = null;
 
 const serverUrl = 'http://localhost:3000';
@@ -18,17 +18,34 @@ async function render(view){
 
     switch(view){
         case 'Bejelentkezes': {
-            PageTitle.innerHTML = "Bejelentkezés"
+            PageTitle.innerHTML = "Bejelentkezés";
+            pic.classList.add('pic');
+            break;
         }
         case 'Regisztracio': {
-            PageTitle.innerHTML = "Regisztráció"
+            PageTitle.innerHTML = "Regisztráció";
+            pic.classList.add('pic');
+            break;
         }
         case 'Fooldal': {
-            PageTitle.innerHTML = "Mr.Black & Mr.Blacker online szakács könyv"
+            PageTitle.innerHTML = "Mr.Black & Mr.Blacker online szakács könyv";
+            pic.classList.add('pic');
+            break;
         }
         case 'Receptek': {
-            PageTitle.innerHTML = "Receptek"
             getRecipes();
+            PageTitle.innerHTML = "Receptek";
+
+            pic.classList.remove('pic');
+
+            break;
+        }
+        case 'Feltoltes': {
+            pushRecipes();
+            getCategory();
+            pic.classList.add('pic');
+            PageTitle.innerHTML = "Tölts fel recepteket";
+            break;
         }
     }
 }

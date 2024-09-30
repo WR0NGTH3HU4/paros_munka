@@ -112,3 +112,53 @@ function getRecipes() {
         }
     });
 }
+function pushRecipes(){
+    //kategória lekérés
+
+}
+function getCategory(){
+    const kategoriak = document.querySelector(".kategoriak");
+
+    axios.get(`${serverUrl}/category`).then(res =>{
+        console.log(res.data);
+        for (let i = 0; i < res.data.length; i++){
+            const kategoria = document.createElement('li');
+            kategoria.id= `kategoria${i}`;
+            kategoria.innerHTML = res.data[i].name;
+
+            kategoriak.appendChild(kategoria);
+        }
+    });
+
+}
+function dropdownCheck() {
+    const kategoriak = document.querySelector(".kategoriak");
+    
+    kategoriak.classList.toggle('visible');
+    const dropBTN = document.querySelector(".dropBTN");
+    dropBTN.classList.toggle('rounded-b-[15px]')
+     // Toggle 'visible' class to show/hide the dropdown
+}
+
+function addAdditions(){
+    const ingredients = document.querySelector(".ingredients");
+    const placeholder = document.querySelector(".placeholder")
+    const addition = document.querySelector(".addition").value;
+    placeholder.classList.add('hidden')
+    const listitem = document.createElement('h3');
+
+    if(addition != ''){
+
+        listitem.innerHTML = addition+",";
+        listitem.classList.add('text-xl', 'text-stone-200');
+        
+        
+        ingredients.appendChild(listitem)
+    }else{
+        alert("Nics")
+    }
+}
+
+window.onload = function() {
+    getCategory();
+};
