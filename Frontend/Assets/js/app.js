@@ -42,7 +42,6 @@ async function render(view){
         }
         case 'Feltoltes': {
             getMe();
-            pushRecipes();
             getCategory();
             pic.classList.add('pic');
             PageTitle.innerHTML = "Tölts fel recepteket";
@@ -61,16 +60,12 @@ async function render(view){
     let lgdOutNavItems = document.querySelectorAll('.lgdOut');
     let lgdInNavItems = document.querySelectorAll('.lgdIn');
 
-    // ha nem vagyunk bejelentkezve
     if (loggedUser == null){
         lgdInNavItems.forEach(item =>{
             item.classList.add('hidden');
         });
         lgdOutNavItems.forEach(item => {
             item.classList.remove('hidden');
-        });
-        admNavItems.forEach(item => {
-            item.classList.add('hidden');
         });
         return;
     }
