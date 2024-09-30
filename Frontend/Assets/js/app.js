@@ -41,13 +41,47 @@ async function render(view){
             break;
         }
         case 'Feltoltes': {
+            getMe();
             pushRecipes();
             getCategory();
             pic.classList.add('pic');
             PageTitle.innerHTML = "Tölts fel recepteket";
             break;
         }
+        case 'Email': {
+            PageTitle.innerHTML = "E-mail cím megváltoztatása";
+            break;
+        }
+        case 'Password':{
+            PageTitle.innerHTML = "Jelszó megváltoztatása";
+            break;
+        }
     }
+
+    let lgdOutNavItems = document.querySelectorAll('.lgdOut');
+    let lgdInNavItems = document.querySelectorAll('.lgdIn');
+
+    // ha nem vagyunk bejelentkezve
+    if (loggedUser == null){
+        lgdInNavItems.forEach(item =>{
+            item.classList.add('hidden');
+        });
+        lgdOutNavItems.forEach(item => {
+            item.classList.remove('hidden');
+        });
+        admNavItems.forEach(item => {
+            item.classList.add('hidden');
+        });
+        return;
+    }
+
+    lgdInNavItems.forEach(item => {
+        item.classList.remove('hidden');
+    });
+
+    lgdOutNavItems.forEach(item => {
+        item.classList.add('hidden');
+    });
 }
 
 if (localStorage.getItem('szakacskonyv')){
@@ -97,3 +131,10 @@ document.addEventListener('DOMContentLoaded', function() {
         render('Fooldal');
     }
 });
+
+function authorize(){
+    let res = {
+        headers: {"assd": loggedUser[0].ID}
+    }
+    return res;
+}

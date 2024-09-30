@@ -1,11 +1,10 @@
 function registration() {
-    console.log('Belépett'); // Ellenőrizd, hogy ezt látod-e a konzolban
     let newUser = {
         name: document.querySelector('#name').value,
-        email: document.querySelector('#email').value,
         passwd: document.querySelector('#passwd').value,
-        confirm: document.querySelector('#confirm').value,
-        phone: document.querySelector('#telefon').value // Ügyelj a helyes id-re
+        email: document.querySelector('#email').value,
+        phone: document.querySelector('#telefon').value,
+        confirm: document.querySelector('#confirm').value
     }
 
     console.log(newUser); // Ellenőrizd, hogy ez megjelenik-e a konzolban
@@ -23,8 +22,7 @@ function login(){
     console.log(user);
 
     axios.post(`${serverUrl}/login`, user).then(res =>{
-        console.log("Ide belepett!");
-        if (res.status != 200){
+        if (res.status != 202){
             alert(res.data);
             return;
         }
@@ -39,5 +37,31 @@ function logout(){
     localStorage.removeItem('szakacskonyv');
     loggedUser = null;
     renderNavItems();
-    render('Főoldal');
+    render('Fooldal');
+}
+
+
+function updatePassword(){
+    
+    let data = {
+        oldpass: document.querySelector('#oldpass').value,
+        newpass: document.querySelector('#newpass').value,
+        confirm: document.querySelector('#confirm').value
+    }
+
+    axios.patch(`${serverUrl}/passmod/${loggedUser[0].ID}`, data, authorize()).then(res => {
+        alert(res.data);
+
+        if (res.status == 200){
+            document.querySelector('#oldpass').value = "";
+            document.querySelector('#newpass').value = "";
+            document.querySelector('#confirm').value = "";
+        }
+    });
+}
+
+function getMe(){
+    axios.get(`${serverUrl}/me/${loggedUser[0].ID}`, authorize()).then(res =>{
+        console.log(res.data[0].name)
+    });
 }
