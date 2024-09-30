@@ -3,7 +3,7 @@
         <div class="flex flex-col justify-evenly content-center items-center w-1/2 h-full gap-5 mb-10">
             <div class="flex flex-col justify-center content-center items-center w-full gap-5">
                 <h3 class="text-xl text-stone-100 w-full">Étel megnevezése</h3>
-                <input id="passwd" class="form-control block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:stroke-1 focus:stroke-stone-600 focus:text-stone-700" placeholder="Étel megnevezése">
+                <input id="EtelNev" class="form-control block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:stroke-1 focus:stroke-stone-600 focus:text-stone-700" placeholder="Étel megnevezése">
                 <h3 class="text-xl text-stone-100 w-full">Kategória kiválasztása</h3>
                 <div class="w-full flex flex-col justify-evenly content-center items-center">
                     <button class="dropBTN w-full p-3 rounded-t-[15px] rounded-b-[15px] drop-shadow-lg bg-stone-200 text-stone-400 dropDown" onclick="dropdownCheck()">Válassz ki egy kategóriát</button>
@@ -33,6 +33,10 @@
                 rows="4"
                 style="resize: none; overflow-wrap: break-word;">
             </textarea>
+            <h3 class="text-xl text-stone-100 w-full">Elkészítési idő</h3>
+            <input type="number" class="time form-control block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:stroke-1 focus:stroke-stone-600 focus:text-stone-700" placeholder="XX perc">
+            <h3 class="text-xl text-stone-100 w-full">Kalória</h3>
+            <input type="number" class="calory form-control block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:stroke-1 focus:stroke-stone-600 focus:text-stone-700" placeholder="Kcal">
         </div>
     </div>
 

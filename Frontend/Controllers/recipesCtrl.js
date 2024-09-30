@@ -112,25 +112,52 @@ function getRecipes() {
         }
     });
 }
-function pushRecipes(){
-    //kategória lekérés
+function pushRecipes() {
+    let dropBtn = document.querySelector(".dropBTN");
 
+    
+    if (!dropBtn) {
+        console.error("Drop button not found");
+        return;
+    }
+
+    
+    let categoryId = dropBtn.innerHTML !== "Válassz ki egy kategóriát" ? dropBtn.innerHTML : ""; 
+
+    let recipe = {
+        catID: categoryId, 
+        title: document.querySelector("#EtelNev").value, 
+        description: document.querySelector("#descriptionTextarea").value, 
+        time: document.querySelector(".time").value || "", 
+        additions: document.querySelector("#hozzavalok") ? document.querySelector("#hozzavalok").innerHTML : "", 
+        calory: document.querySelector(".calory").value || "" 
+    };
+
+    
+    console.log(recipe); 
+
+    
 }
 function getCategory(){
     const kategoriak = document.querySelector(".kategoriak");
+    const dropBTN = document.querySelector(".dropBTN");
 
-    axios.get(`${serverUrl}/category`).then(res =>{
+    axios.get(`${serverUrl}/category`).then(res => {
         console.log(res.data);
         for (let i = 0; i < res.data.length; i++){
-            const kategoria = document.createElement('li');
-            kategoria.id= `kategoria${i}`;
+            let kategoria = document.createElement('li'); 
+            kategoria.id = `kategoria${i}`;
             kategoria.innerHTML = res.data[i].name;
 
             kategoriak.appendChild(kategoria);
+            kategoria.addEventListener('click', () => {
+                dropBTN.innerHTML = kategoria.innerHTML;
+                dropBTN.classList.add("text-stone-700");
+            });  
         }
     });
-
 }
+
 function dropdownCheck() {
     const kategoriak = document.querySelector(".kategoriak");
     
@@ -146,6 +173,7 @@ function addAdditions(){
     const addition = document.querySelector(".addition").value;
     placeholder.classList.add('hidden')
     const listitem = document.createElement('h3');
+    listitem.id="hozzavalok"
 
     if(addition != ''){
 
