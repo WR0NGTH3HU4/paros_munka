@@ -114,9 +114,10 @@ app.post('/reg', (req, res) => {
      }
     
     // új felhasználó felvétele
-    pool.query(`INSERT INTO users VALUES('${uuid.v4()}', '${req.body.name}', ${req.body.password}, '${req.body.email}', '${req.body.phone}', 'user', 'true' )`, (err, results)=>{
+    pool.query(`INSERT INTO users VALUES('${uuid.v4()}', '${req.body.name}', '${req.body.email}', '${req.body.passwd}', '${req.body.phone}', 'user', '1' )`, (err, results)=>{
       if (err){
         res.status(500).send('Hiba történt az adatbázis művelet közben!');
+        console.log(err)
         return;
        }
        res.status(202).send('Sikeres regisztráció!');
@@ -143,10 +144,7 @@ app.post('/login', (req, res) => {
       return;
     }
     
-    if (results.length == 0){
-      res.status(203).send('Hibás belépési adatok!');
-      return;
-    }
+
 
     res.status(200).send(results);
     return;
