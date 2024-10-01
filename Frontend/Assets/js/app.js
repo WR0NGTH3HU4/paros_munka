@@ -49,10 +49,17 @@ async function render(view){
         }
         case 'Email': {
             PageTitle.innerHTML = "E-mail cím megváltoztatása";
+            pic.classList.add('pic');
             break;
         }
         case 'Password':{
             PageTitle.innerHTML = "Jelszó megváltoztatása";
+            pic.classList.add('pic');
+            break;
+        }
+        case 'admin':{
+            PageTitle.innerHTML = "Admin felület";
+            pic.classList.add('pic');
             break;
         }
     }

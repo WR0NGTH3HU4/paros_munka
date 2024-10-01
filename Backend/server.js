@@ -279,6 +279,8 @@ app.listen(port, () => {
   console.log(`Server listening on port ${port}...`);
 });
 
+
+
 // bejelentkezés ellenőrzése
 function logincheck(req, res, next){
   let token = req.header('Authorization');

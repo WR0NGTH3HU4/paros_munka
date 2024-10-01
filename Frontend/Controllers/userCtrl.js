@@ -26,10 +26,18 @@ function login(){
             alert(res.data);
             return;
         }
-
+        
         loggedUser = res.data;
+        
         localStorage.setItem('szakacskonyv', JSON.stringify(loggedUser));
-        render('Receptek');
+        if(res.data.role == "user"){
+            render('Receptek');
+            console.log(res.data[0].role)
+        }
+        else{
+            render('admin');
+        }
+
     });
 }
 
