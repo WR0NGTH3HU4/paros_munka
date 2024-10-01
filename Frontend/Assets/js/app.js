@@ -76,9 +76,13 @@ async function render(view){
 
     let lgdOutNavItems = document.querySelectorAll('.lgdOut');
     let lgdInNavItems = document.querySelectorAll('.lgdIn');
+    let admlgdInNavItems = document.querySelector('.admlgdIn');
 
-    if (loggedUser == null){
-        lgdInNavItems.forEach(item =>{
+    // Admin fül elrejtése alapértelmezetten
+    admlgdInNavItems.classList.add('hidden');
+
+    if (loggedUser == null) {
+        lgdInNavItems.forEach(item => {
             item.classList.add('hidden');
         });
         lgdOutNavItems.forEach(item => {
@@ -94,6 +98,11 @@ async function render(view){
     lgdOutNavItems.forEach(item => {
         item.classList.add('hidden');
     });
+
+    // Ellenőrizzük, hogy a felhasználó admin-e
+    if (loggedUser[0].role === 'admin') {
+        admlgdInNavItems.classList.remove('hidden'); // Admin fül megjelenítése
+    }
 }
 
 if (localStorage.getItem('szakacskonyv')){
