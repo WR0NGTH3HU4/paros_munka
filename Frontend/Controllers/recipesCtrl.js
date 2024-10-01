@@ -1,3 +1,4 @@
+let categoryID;
 function getRecipes() {
     let tartalom = document.querySelector('.tartalom');
 
@@ -121,17 +122,28 @@ function pushRecipes() {
         return;
     }
 
-    
-    let categoryId = dropBtn.innerHTML !== "Válassz ki egy kategóriát" ? dropBtn.innerHTML : ""; 
-
     let recipe = {
-        catID: categoryId, 
+        catID: categoryID, 
+        userID: loggedUser[0].ID,
         title: document.querySelector("#EtelNev").value, 
         description: document.querySelector("#descriptionTextarea").value, 
-        time: document.querySelector(".time").value || "", 
-        additions: document.querySelector("#hozzavalok") ? document.querySelector("#hozzavalok").innerHTML : "", 
-        calory: document.querySelector(".calory").value || "" 
+        time: document.querySelector(".time").value, 
+        additions: document.querySelector("#hozzavalok").innerHTML , 
+        calory: document.querySelector(".calory").value  
     };
+
+    
+    if(categoryID.innerHTML == "Válassz ki egy kategóriát" || recipe.title == "" || recipe.description == "" || recipe.time == "" || recipe.additions == "" || recipe.calory == ""){
+        alert("Nem adtál meg kategóriát!");
+    }
+    else{
+        axios.post(`${serverUrl}/upload/${loggedUser[0].ID}`, recipe, authorize()).then(res=>{
+            alert(res.data)
+        })
+    }
+    
+
+
 
     
     console.log(recipe); 
@@ -148,6 +160,7 @@ function getCategory(){
             let kategoria = document.createElement('li'); 
             kategoria.id = `kategoria${i}`;
             kategoria.innerHTML = res.data[i].name;
+            categoryID = res.data[i].ID;
 
             kategoriak.appendChild(kategoria);
             kategoria.addEventListener('click', () => {
@@ -171,13 +184,14 @@ function addAdditions(){
     const ingredients = document.querySelector(".ingredients");
     const placeholder = document.querySelector(".placeholder")
     const addition = document.querySelector(".addition").value;
+    const quantity = document.querySelector(".quantity").value;
     placeholder.classList.add('hidden')
     const listitem = document.createElement('h3');
     listitem.id="hozzavalok"
 
     if(addition != ''){
 
-        listitem.innerHTML = addition+",";
+        listitem.innerHTML = addition+" - "+quantity+",";
         listitem.classList.add('text-xl', 'text-stone-200');
         
         
