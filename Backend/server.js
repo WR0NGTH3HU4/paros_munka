@@ -61,10 +61,11 @@ app.post('/upload/:userID', (req, res)=>{
     return;
   }
 
-  if(!req.body.title || !req.description || !req.body.time || req.body.additions || req.body.calroy){
+  if(!req.body.title || !req.body.description || !req.body.time || !req.body.additions || !req.body.calory) {
     res.status(203).send('Nem adtál meg minden kötelező adatot!');
     return;
   }
+
 
   pool.query(`INSERT INTO recipes VALUES('${uuid.v4()}', ${req.body.catID}, '${req.params.userID}', '${req.body.title}', '${req.body.description}', '${req.body.time}', '${req.body.additions}', '${req.body.calory}')`, (err, results)=>{
     if (err){
