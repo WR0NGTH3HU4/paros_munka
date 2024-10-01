@@ -64,6 +64,13 @@ async function render(view){
         }
         case 'Profil':{
             PageTitle.innerHTML = "Profil";
+            pic.classList.add('pic');
+            break;
+        }
+        case 'Felhasznalok':{
+            getUsers();
+            PageTitle.innerHTML = "Profil";
+            break;
         }
     }
 
@@ -137,9 +144,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-function authorize(){
-    let res = {
-        headers: {"assd": loggedUser[0].ID}
-    }
-    return res;
+function authorize() {
+    return {
+        headers: {
+            "Authorization": `Bearer ${loggedUser[0].ID}`  
+        }
+    };
 }

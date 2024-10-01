@@ -358,24 +358,27 @@ function logincheck(req, res, next){
   return;
 }
 // jogosulstág ellenőrzése
-function admincheck(req, res, next){
+function admincheck(req, res, next) {
   let token = req.header('Authorization');
-  
-  if (!token){
-    res.status(400).send('Jelentkezz be!');
-    return;
+
+  if (!token) {
+      res.status(400).send('Jelentkezz be!');
+      return;
   }
 
-  pool.query(`SELECT role FROM users WHERE ID='${token}'`, (err, results) => {
-    if (results.length == 0){
-      res.status(400).send('Hibás authentikáció!');
-      return;
-    } 
-    if (results[0].role != 'admin'){
-      res.status(400).send('Nincs jogosultságod!');
-      return;
-    }
-    next();
+  // A "Bearer " szó leírása
+  const userId = token.split(' ')[1]; // "Bearer <token>" => <token>
+
+  pool.query(`SELECT role FROM users WHERE ID='${userId}'`, (err, results) => {
+      if (results.length === 0) {
+          res.status(400).send('Hibás authentikáció!');
+          return;
+      }
+      if (results[0].role !== 'admin') {
+          res.status(400).send('Nincs jogosultságod!');
+          return;
+      }
+      next();
   });
 
   return;

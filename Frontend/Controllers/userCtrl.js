@@ -28,7 +28,7 @@ function login(){
         }
         
         loggedUser = res.data;
-        
+        console.log(res.data[0].role)
         localStorage.setItem('szakacskonyv', JSON.stringify(loggedUser));
         if(res.data.role == "user"){
             render('Receptek');
