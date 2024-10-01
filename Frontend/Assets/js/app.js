@@ -55,6 +55,9 @@ async function render(view){
             PageTitle.innerHTML = "Jelszó megváltoztatása";
             break;
         }
+        case 'Profil':{
+            PageTitle.innerHTML = "Profil";
+        }
     }
 
     let lgdOutNavItems = document.querySelectorAll('.lgdOut');

@@ -41,24 +41,68 @@ function logout(){
 }
 
 
-function updatePassword(){
-    
+function updatePassword() {
     let data = {
         oldpass: document.querySelector('#oldpass').value,
         newpass: document.querySelector('#newpass').value,
         confirm: document.querySelector('#confirm').value
+    };
+
+    // Ellenőrizzük, hogy a bejelentkezett felhasználó ID-ja elérhető
+    if (!loggedUser || !loggedUser[0]) {
+        alert('Jelentkezz be a jelszó módosításához!');
+        return;
     }
 
-    axios.patch(`${serverUrl}/passmod/${loggedUser[0].ID}`, data, authorize()).then(res => {
-        alert(res.data);
+    // Axios PATCH kérés küldése
+    axios.patch(`${serverUrl}/passmod/${loggedUser[0].ID}`, data, { headers: { Authorization: loggedUser[0].ID } })
+        .then(res => {
+            alert(res.data); // Értesítés a válaszról
 
-        if (res.status == 200){
-            document.querySelector('#oldpass').value = "";
-            document.querySelector('#newpass').value = "";
-            document.querySelector('#confirm').value = "";
-        }
-    });
+            if (res.status === 200) {
+                // Töröljük a mezők értékét a sikeres módosítás után
+                document.querySelector('#oldpass').value = "";
+                document.querySelector('#newpass').value = "";
+                document.querySelector('#confirm').value = "";
+            }
+        })
 }
+
+function updateEmail() {
+    let data = {
+        newEmail: document.querySelector('#newEmail').value,
+        currentPassword: document.querySelector('#passwd').value
+    };
+
+    // Ellenőrizzük, hogy a bejelentkezett felhasználó ID-ja elérhető
+    if (!loggedUser || !loggedUser[0]) {
+        alert('Jelentkezz be az e-mail cím módosításához!');
+        return;
+    }
+
+    // Ellenőrizzük, hogy az új e-mail és a jelszó megvan
+    if (!data.newEmail || !data.currentPassword) {
+        alert('Kérjük, töltse ki az összes mezőt!');
+        return;
+    }
+
+    // Axios PATCH kérés küldése
+    axios.patch(`${serverUrl}/emailmod/${loggedUser[0].ID}`, data, { headers: { Authorization: loggedUser[0].ID } })
+        .then(res => {
+            alert(res.data); // Értesítés a válaszról
+
+            if (res.status === 200) {
+                // Töröljük a mezők értékét a sikeres módosítás után
+                document.querySelector('#newEmail').value = "";
+                document.querySelector('#passwd').value = "";
+            }
+        })
+        .catch(err => {
+            alert('Hiba történt az e-mail cím módosítása közben!'); // Hibakezelés
+            console.error(err);
+        });
+}
+
 
 function getMe(){
     axios.get(`${serverUrl}/me/${loggedUser[0].ID}`, authorize()).then(res =>{
