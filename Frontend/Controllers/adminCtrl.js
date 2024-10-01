@@ -5,10 +5,10 @@ function getUsers() {
         console.log(res.data);
         for (let i = 0; i < res.data.length; i++) {
             const userLine = document.createElement('span');
-            userLine.classList.add('flex', 'flex-row', 'justify-evenly', 'content-center', 'items-center', 'p-3', 'rounded-[15px]', 'text-xl', 'text-stone-200', 'gap-5', "w-full", "bg-stone-400");
+            userLine.classList.add('flex', 'flex-row', 'justify-between', 'content-center', 'items-center', 'p-3', 'rounded-[15px]', 'text-xl', 'text-stone-200', 'gap-5', "w-full", "bg-stone-400", "overflow-y-auto");
 
             const deleteBTN = document.createElement('span');
-            deleteBTN.classList.add('p-3', 'bg-red-600', 'rounded-[15px]', 'text-xl', 'text-stone-200');
+            deleteBTN.classList.add('p-3', 'bg-red-600', 'rounded-[15px]', 'text-xl', 'text-stone-200', 'delete', "hover:bg-red-700", 'active:bg-red-500');
             deleteBTN.innerHTML = "Törlés";
             deleteBTN.id = `user-${res.data[i].ID}`; 
 
@@ -32,7 +32,11 @@ function getUsers() {
             userLine.appendChild(deleteBTN);
             userLines.appendChild(userLine);
         }
+  
+
     }).catch(err => {
         console.error(err);
     });
 }
+
+ 

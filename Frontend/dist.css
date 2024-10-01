@@ -743,6 +743,10 @@ video {
   overflow-y: auto;
 }
 
+.overflow-x-hidden {
+  overflow-x: hidden;
+}
+
 .rounded {
   border-radius: 0.25rem;
 }
@@ -1056,6 +1060,11 @@ body,html{
   background-color: rgb(87 83 78 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-red-700:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(185 28 28 / var(--tw-bg-opacity));
+}
+
 .focus\:stroke-stone-600:focus {
   stroke: #57534e;
 }
@@ -1093,4 +1102,9 @@ body,html{
 .active\:bg-red-700:active {
   --tw-bg-opacity: 1;
   background-color: rgb(185 28 28 / var(--tw-bg-opacity));
+}
+
+.active\:bg-red-500:active {
+  --tw-bg-opacity: 1;
+  background-color: rgb(239 68 68 / var(--tw-bg-opacity));
 }

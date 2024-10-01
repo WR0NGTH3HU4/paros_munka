@@ -1,4 +1,5 @@
 let categoryID;
+let ingredientsList = []; 
 function getRecipes() {
     let tartalom = document.querySelector('.tartalom');
 
@@ -116,7 +117,6 @@ function getRecipes() {
 function pushRecipes() {
     let dropBtn = document.querySelector(".dropBTN");
 
-    
     if (!dropBtn) {
         console.error("Drop button not found");
         return;
@@ -128,27 +128,23 @@ function pushRecipes() {
         title: document.querySelector("#EtelNev").value, 
         description: document.querySelector("#descriptionTextarea").value, 
         time: document.querySelector(".time").value, 
-        additions: document.querySelector("#hozzavalok").innerHTML , 
+        additions: ingredientsList.join(', '), // Join the ingredients list into a string
         calory: document.querySelector(".calory").value  
     };
 
-    
-    if(categoryID.innerHTML == "Válassz ki egy kategóriát" || recipe.title == "" || recipe.description == "" || recipe.time == "" || recipe.additions == "" || recipe.calory == ""){
-        alert("Nem adtál meg kategóriát!");
+    if (categoryID == undefined || recipe.title == "" || recipe.description == "" || recipe.time == "" || ingredientsList.length == 0 || recipe.calory == "") {
+        alert("Kérjük, töltse ki az összes mezőt!");
+    } else {
+        axios.post(`${serverUrl}/upload/${loggedUser[0].ID}`, recipe, authorize()).then(res => {
+            alert(res.data);
+            // Reset the ingredient list after successful upload
+            ingredientsList = [];
+            // Optionally, clear the displayed ingredients
+            updateIngredientsDisplay(document.querySelector(".ingredients"));
+        });
     }
-    else{
-        axios.post(`${serverUrl}/upload/${loggedUser[0].ID}`, recipe, authorize()).then(res=>{
-            alert(res.data)
-        })
-    }
-    
 
-
-
-    
-    console.log(recipe); 
-
-    
+    console.log(recipe);
 }
 function getCategory(){
     const kategoriak = document.querySelector(".kategoriak");
@@ -180,25 +176,39 @@ function dropdownCheck() {
      // Toggle 'visible' class to show/hide the dropdown
 }
 
-function addAdditions(){
+function addAdditions() {
     const ingredients = document.querySelector(".ingredients");
-    const placeholder = document.querySelector(".placeholder")
-    const addition = document.querySelector(".addition").value;
-    const quantity = document.querySelector(".quantity").value;
-    placeholder.classList.add('hidden')
-    const listitem = document.createElement('h3');
-    listitem.id="hozzavalok"
+    const placeholder = document.querySelector(".placeholder");
+    const addition = document.querySelector(".addition").value.trim();
+    const quantity = document.querySelector(".quantity").value.trim();
 
-    if(addition != ''){
+    if (addition !== '' && quantity !== '') {
+        // Add the new ingredient to the ingredients list
+        ingredientsList.push(`${addition} - ${quantity}`);
+        
+        // Clear the input fields
+        document.querySelector(".addition").value = '';
+        document.querySelector(".quantity").value = '';
 
-        listitem.innerHTML = addition+" - "+quantity+",";
-        listitem.classList.add('text-xl', 'text-stone-200');
-        
-        
-        ingredients.appendChild(listitem)
-    }else{
-        alert("Nics")
+        // Update the displayed ingredients
+        updateIngredientsDisplay(ingredients);
+        placeholder.classList.add('hidden');
+    } else {
+        alert("Kérjük, adjon meg egy hozzávalót és mennyiséget!");
     }
+}
+
+function updateIngredientsDisplay(ingredients) {
+    // Clear the existing ingredients displayed
+    ingredients.innerHTML = '';
+    
+    // Create and append new ingredient elements
+    ingredientsList.forEach((ingredient) => {
+        const listItem = document.createElement('h3');
+        listItem.classList.add('text-xl', 'text-stone-200');
+        listItem.innerHTML = ingredient + ',';
+        ingredients.appendChild(listItem);
+    });
 }
 
 window.onload = function() {

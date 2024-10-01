@@ -335,7 +335,29 @@ app.listen(port, () => {
   console.log(`Server listening on port ${port}...`);
 });
 
+app.delete('/users/:id', logincheck, (req, res) => {
+  const userId = req.params.id;
 
+  if (!userId) {
+      res.status(400).send('Hiányzó azonosító!'); // Bad Request for missing ID
+      return;
+  }
+
+  // Use parameterized query to prevent SQL injection
+  pool.query(`DELETE FROM users WHERE ID = ?`, [userId], (err, results) => {
+      if (err) {
+          res.status(500).send('Hiba történt az adatbázis lekérés közben!'); // Internal Server Error
+          return;
+      }
+
+      if (results.affectedRows === 0) {
+          res.status(404).send('Hibás azonosító!'); // Not Found for invalid ID
+          return;
+      }
+
+      res.status(200).send('Felhasználó törölve!'); // Success
+  });
+});
 
 // bejelentkezés ellenőrzése
 function logincheck(req, res, next){
