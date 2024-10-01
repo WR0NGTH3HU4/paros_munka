@@ -116,7 +116,7 @@ app.post('/reg', (req, res) => {
     
     // új felhasználó felvétele
     console.log(req.body.passwd)
-    pool.query(`INSERT INTO users VALUES('${uuid.v4()}', '${req.body.name}',  '${CryptoJS.SHA1(req.body.passwd)}','${req.body.email}', '${req.body.phone}', 'user', '1' )`, (err, results)=>{
+    pool.query(`INSERT INTO users VALUES('${uuid.v4()}', '${req.body.name}', '${CryptoJS.SHA1(req.body.passwd)}','${req.body.email}', '${req.body.phone}', 'user', '1' )`, (err, results)=>{
       if (err){
         res.status(500).send('Hiba történt az adatbázis művelet közben!');
         console.log(err)
@@ -227,41 +227,41 @@ app.patch('/passmod/:id', logincheck, (req, res) => {
   }
 
    // jelszavak ellenőrzése
-   if (req.body.newpass != req.body.confirm){
+   if (req.body.newpass !== req.body.confirm) {
     res.status(203).send('A megadott jelszavak nem egyeznek!');
     return;
   }
   
   // jelszó min kritériumoknak megfelelés
-  if (!req.body.newpass.match(passwdRegExp)){
+  if (!req.body.newpass.match(passwdRegExp)) {
     res.status(203).send('A jelszó nem elég biztonságos!');
     return;
   }
 
   // megnézzük, hogy jó-e a megadott jelenlegi jelszó
-  pool.query(`SELECT passwd FROM users WHERE ID='${req.params.id}'`, (err, results) => {
-    if (err){
+  pool.query(`SELECT password FROM users WHERE ID='${req.params.id}'`, (err, results) => {
+    if (err) {
       res.status(500).send('Hiba történt az adatbázis lekérés közben!');
       return;
     }
 
-    if (results.length == 0){
+    if (results.length === 0) {
       res.status(203).send('Hibás azonosító!');
       return;
     }
 
-    if (results[0].passwd != CryptoJS.SHA1(req.body.oldpass)){
+    if (results[0].password !== CryptoJS.SHA1(req.body.oldpass).toString()) {
       res.status(203).send('A jelenlegi jelszó nem megfelelő!');
       return;
     }
 
-    pool.query(`UPDATE users SET passwd=SHA1('${req.body.newpass}') WHERE ID='${req.params.id}'`, (err, results) => {
-      if (err){
-        res.status(500).send('Hiba történt az adatbázis lekérés közben!');
+    pool.query(`UPDATE users SET password=SHA1('${req.body.newpass}') WHERE ID='${req.params.id}'`, (err, results) => {
+      if (err) {
+        res.status(500).send('Hiba történt az adatbázis műveletek közben!');
         return;
       }
   
-      if (results.affectedRows == 0){
+      if (results.affectedRows === 0) {
         res.status(203).send('Hibás azonosító!');
         return;
       }
@@ -269,10 +269,57 @@ app.patch('/passmod/:id', logincheck, (req, res) => {
       res.status(200).send('A jelszó módosítva!');
       return;
     });
-
   });
-
 });
+
+//e-mail módosítása
+app.patch('/emailmod/:id', logincheck, (req, res) => {
+  if (!req.params.id) {
+      res.status(400).send('Hiányzó azonosító!');
+      return;
+  }
+
+  // Ellenőrizzük, hogy az új e-mail és a jelszó megvan
+  if (!req.body.newEmail || !req.body.currentPassword) {
+      res.status(400).send('Hiányzó adatok!');
+      return;
+  }
+
+  // Ellenőrizzük, hogy a megadott jelszó helyes-e
+  pool.query(`SELECT password FROM users WHERE ID='${req.params.id}'`, (err, results) => {
+      if (err) {
+          res.status(500).send('Hiba történt az adatbázis lekérése közben!');
+          return;
+      }
+
+      if (results.length === 0) {
+          res.status(400).send('Hibás azonosító!');
+          return;
+      }
+
+      if (results[0].password !== CryptoJS.SHA1(req.body.currentPassword).toString()) {
+          res.status(400).send('A megadott jelszó nem megfelelő!');
+          return;
+      }
+
+      // Frissítjük az új e-mail címet
+      pool.query(`UPDATE users SET email='${req.body.newEmail}' WHERE ID='${req.params.id}'`, (err, results) => {
+          if (err) {
+              res.status(500).send('Hiba történt az adatbázis műveletek közben!');
+              return;
+          }
+
+          if (results.affectedRows === 0) {
+              res.status(400).send('Hibás azonosító!');
+              return;
+          }
+
+          res.status(200).send('Az e-mail cím módosítva!');
+      });
+  });
+});
+
+
 
 app.listen(port, () => {
   //console.log(process.env) ;

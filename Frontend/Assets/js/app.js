@@ -62,6 +62,9 @@ async function render(view){
             pic.classList.add('pic');
             break;
         }
+        case 'Profil':{
+            PageTitle.innerHTML = "Profil";
+        }
     }
 
     let lgdOutNavItems = document.querySelectorAll('.lgdOut');
